@@ -1,0 +1,12 @@
+# グローバル既定バージョン
+[tools]
+node = "lts"
+pnpm = "latest"
+go = "latest"
+python = "3.12"
+gitleaks = "latest"
+
+[settings]
+experimental = true
+verbose = false
+

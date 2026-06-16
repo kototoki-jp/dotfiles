@@ -1,0 +1,11 @@
+# マシン毎の設定値（テンプレートで参照）
+machines:
+  um773:
+    role: "main-development"
+    git_email_field: "op://Developer Tools/GitHub/email"
+    locale: "ja_JP.UTF-8"
+  lenovo-e14:
+    role: "ssh-bastion"
+    git_email_field: "op://Developer Tools/GitHub/email"
+    locale: "ja_JP.UTF-8"
+

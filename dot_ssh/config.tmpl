@@ -1,0 +1,18 @@
+Host github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519
+    AddKeysToAgent yes
+
+{{- if eq .machine "lenovo-e14" }}
+Host um773.local
+    HostName 192.168.188.190
+    User tadauki
+    IdentityFile ~/.ssh/id_ed25519
+    ForwardAgent yes
+{{- end }}
+
+# 共通設定
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+

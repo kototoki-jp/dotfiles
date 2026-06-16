@@ -1,0 +1,44 @@
+# ~/.config/starship.toml
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[╭─](bold green) $directory$git_branch$git_status$nodejs$python$golang$rust
+[╰─](bold green)$character """
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
+
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+style = "bold cyan"
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+
+[git_status]
+style = "bold red"
+
+[nodejs]
+symbol = " "
+style = "bold green"
+format = '[$symbol($version )]($style)'
+
+[python]
+symbol = " "
+style = "bold yellow"
+
+[golang]
+symbol = " "
+style = "bold cyan"
+
+[rust]
+symbol = " "
+style = "bold red"
+
+[cmd_duration]
+min_time = 2_000
+format = "took [$duration](bold yellow)"
+

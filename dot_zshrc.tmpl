@@ -1,0 +1,107 @@
+# ==========================================
+# 合同会社言季 開発環境 zshrc
+# ==========================================
+
+# --- Path ---
+export PATH="$HOME/.local/bin:$PATH"
+
+# --- Locale ---
+export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
+
+# --- Editor ---
+export EDITOR="cursor --wait"
+export VISUAL="$EDITOR"
+
+# --- History ---
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
+# --- Completion ---
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# --- Key bindings (Emacs style) ---
+bindkey -e
+
+# --- mise (ランタイム管理) ---
+eval "$(~/.local/bin/mise activate zsh)"
+
+# --- starship prompt ---
+eval "$(starship init zsh)"
+
+# --- fzf ---
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+
+# --- Aliases ---
+alias ls='ls --color=auto'
+alias ll='ls -alh'
+alias la='ls -A'
+alias l='ls -CF'
+alias grep='grep --color=auto'
+alias g='git'
+alias gs='git status'
+alias gd='git diff'
+alias gco='git checkout'
+alias gp='git push'
+alias gl='git pull'
+alias k='kubectl'
+alias d='docker'
+alias dc='docker compose'
+alias cz='chezmoi'
+alias cze='chezmoi edit'
+alias cza='chezmoi apply'
+alias czd='chezmoi diff'
+
+# --- bat (cat 代替) ---
+if command -v batcat &> /dev/null; then
+    alias cat='batcat --paging=never'
+    alias bat='batcat'
+fi
+
+# --- fd (find 代替) ---
+if command -v fdfind &> /dev/null; then
+    alias fd='fdfind'
+fi
+
+# --- 1Password CLI 統合 ---
+# `op run --env-file=.env -- command` で秘密を実行時注入
+# `opr` のショートカット
+alias opr='op run --env-file=.env --'
+
+# --- Cloudflare wrangler ショートカット ---
+alias cf='wrangler'
+
+# --- gh ショートカット ---
+alias ghv='gh repo view --web'
+
+# --- Custom functions ---
+
+# ディレクトリ作って入る
+mkcd() { mkdir -p "$1" && cd "$1"; }
+
+# 法人ワーキングディレクトリへ
+work() { cd ~/work/kototoki-jp${1:+/$1}; }
+
+# 個人事業主案件ディレクトリへ
+personal() { cd ~/work/personal${1:+/$1}; }
+
+# --- Machine-specific ---
+{{- if eq .machine "um773" }}
+# UM773 メイン開発機
+export DOCKER_BUILDKIT=1
+{{- end }}
+
+{{- if eq .machine "lenovo-e14" }}
+# Lenovo E14 踏み台
+# SSH先ショートカット
+alias um='ssh um773.local'
+{{- end }}
+

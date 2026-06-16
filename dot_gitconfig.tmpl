@@ -1,0 +1,57 @@
+[user]
+    name = Tadayuki Yamaoka
+    email = {{ onepasswordRead "op://Developer Tools/GitHub/email" }}
+
+[init]
+    defaultBranch = main
+    templateDir = ~/.git-template
+
+[pull]
+    rebase = true
+
+[push]
+    default = current
+    autoSetupRemote = true
+
+[fetch]
+    prune = true
+
+[rebase]
+    autoStash = true
+
+[merge]
+    conflictstyle = zdiff3
+
+[diff]
+    algorithm = histogram
+    colorMoved = default
+
+[color]
+    ui = auto
+
+[core]
+    editor = cursor --wait
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
+    pager = less -FRX
+
+[alias]
+    s = status -sb
+    co = checkout
+    br = branch
+    ci = commit
+    last = log -1 HEAD
+    unstage = reset HEAD --
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d"
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+# kototoki-jp Org のリポジトリは SSH で
+[url "git@github.com:kototoki-jp/"]
+    insteadOf = https://github.com/kototoki-jp/
+
